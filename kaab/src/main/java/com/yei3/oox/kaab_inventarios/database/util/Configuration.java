@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Configuration {
 	static LambdaLogger logger;
-	public static Connection getConnection(Context context) {
+	public static Connection getConnection(Context context) throws SQLException{
 		logger = context.getLogger();
 		Connection conn = null;
 		try {
@@ -27,11 +27,12 @@ public class Configuration {
 	    } catch (SQLException e) {
 	      e.printStackTrace();
 	      logger.log("Error: " + e.getMessage());
+	      throw e;
 	    }
 		return conn;
 	}
 	
-	public static Object resultSetToObject(ResultSet rs, Class cls) {
+	public static Object resultSetToObject(ResultSet rs, Class cls) throws Exception{
 		Object res = null;
 		try {
 			Method method = cls.getDeclaredMethod("getColumns");
@@ -50,11 +51,12 @@ public class Configuration {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.log("Error: " + e.getMessage());
+			throw e;
 		}
 		return res;
 	}
 	
-	public static List<Object> resultSetToList(ResultSet rs, Class cls) {
+	public static List<Object> resultSetToList(ResultSet rs, Class cls) throws Exception{
 		List<Object> res = new ArrayList<Object>();
 		try {
 			Method method = cls.getDeclaredMethod("getColumns");
@@ -65,13 +67,14 @@ public class Configuration {
 				Object obj = cls.newInstance();
 				for (int i = 0; i < columns.length; i++) {
 					method = cls.getDeclaredMethod("set" + columns[i].substring(0, 1).toUpperCase() + columns[i].substring(1),types[i]);
-					method.invoke(obj,rs.getObject(columns[i]));
+					method.invoke(obj,types[i] == int.class ? (rs.getObject(columns[i]) == null ? 0 : rs.getObject(columns[i])) : rs.getObject(columns[i]));
 				}
 				res.add(obj);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.log("Error: " + e.getMessage());
+			throw e;
 		}
 		return res;
 	}

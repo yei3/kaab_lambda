@@ -13,12 +13,12 @@ import java.util.List;
 public class Helper {
 	private Connection connection;
 	static LambdaLogger logger;
-	public Helper(Context context) {
+	public Helper(Context context) throws Exception{
 		this.connection = Configuration.getConnection(context);
 		logger = context.getLogger();
 	}
 	
-	public Object getItemById(Class cls, int id){
+	public Object getItemById(Class cls, int id) throws Exception{
 		Statement stmt;
 		String query = "SELECT * FROM ";
 		Object res = null;
@@ -36,11 +36,12 @@ public class Helper {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.log("Error: " + e.getMessage());
+			throw e;
 		}
 	      return res;
 	}
 	
-	public List<Object> getListByConditions(Class cls, String[] columns, String[] conditions, String[] values){
+	public List<Object> getListByConditions(Class cls, String[] columns, String[] conditions, String[] values) throws Exception{
 		List<Object> list = null;
 		Statement stmt;
 		String query = "SELECT * FROM ";
@@ -63,11 +64,12 @@ public class Helper {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.log("Error: " + e.getMessage());
+			throw e;
 		}
 		return list;
 	}
 	
-	public List<Object> getAllEntity(Class cls){
+	public List<Object> getAllEntity(Class cls) throws Exception{
 		List<Object> list = null;
 		Statement stmt;
 		String query = "SELECT * FROM ";
@@ -84,11 +86,12 @@ public class Helper {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.log("Error: " + e.getMessage());
+			throw e;
 		}
 		return list;
 	}
 	
-	public void insertItem(Class cls, Object obj) {
+	public void insertItem(Class cls, Object obj) throws Exception{
 		Statement stmt;
 		String query = "INSERT INTO ";
 		Object res = null;
@@ -115,10 +118,11 @@ public class Helper {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.log("Error: " + e.getMessage());
+			throw e;
 		}
 	}
 	
-	public void updateItem(Class cls, Object obj) {
+	public void updateItem(Class cls, Object obj) throws Exception{
 		Statement stmt;
 		String query = "UPDATE ";
 		Object res = null;
@@ -143,6 +147,7 @@ public class Helper {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.log("Error: " + e.getMessage());
+			throw e;
 		}
 	}
 }

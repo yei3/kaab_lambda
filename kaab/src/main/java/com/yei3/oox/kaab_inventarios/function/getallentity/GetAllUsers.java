@@ -23,7 +23,7 @@ public class GetAllUsers implements RequestStreamHandler {
     @Override
     public void handleRequest(InputStream input, OutputStream output, Context context) throws IOException {
     	LambdaLogger logger = context.getLogger();
-        logger.log("Getallaccountingaccount starting");
+        logger.log("Getallusers starting");
         JSONParser parser = new JSONParser();
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
         JSONObject responseJson = new JSONObject();
@@ -63,7 +63,7 @@ public class GetAllUsers implements RequestStreamHandler {
         
         responseBody.put("error", errorCode);
     	JSONObject headerJson = new JSONObject();
-        headerJson.put("x-custom-header", "my custom header value");
+    	headerJson.put("Access-Control-Allow-Origin", "*");
         responseJson.put("isBase64Encoded", false);
         responseJson.put("statusCode", responseCode);
         responseJson.put("headers", headerJson);

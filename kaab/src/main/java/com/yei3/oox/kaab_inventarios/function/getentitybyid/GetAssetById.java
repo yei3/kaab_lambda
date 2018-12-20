@@ -102,7 +102,7 @@ public class GetAssetById implements RequestStreamHandler {
         }
         responseBody.put("error", errorCode);
     	JSONObject headerJson = new JSONObject();
-        headerJson.put("x-custom-header", "my custom header value");
+    	headerJson.put("Access-Control-Allow-Origin", "*");
         responseJson.put("isBase64Encoded", false);
         responseJson.put("statusCode", responseCode);
         responseJson.put("headers", headerJson);
