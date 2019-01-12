@@ -1,0 +1,53 @@
+{
+  "Description": "Services for kaab2.",
+  "Parameters" : {
+    
+  },
+  "Conditions" : {
+    
+  },
+  "Resources": {
+    "CreateAccountingAccount": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "com.yei3.oox.kaab_inventarios.function.createentity.CreateAccountingAccount",
+        "Runtime" : "java8",
+        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
+        "Policies": [
+          "AWSLambdaVPCAccessExecutionRole"
+        ],
+        "Environment" : {
+          "Variables" : {
+            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
+            "port" : "3306",
+            "db" : "kaab",
+            "username" : "root",
+            "password" : "password"
+          }
+        },
+        "Events": {
+          "GetResource": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/createAccountingAccount",
+              "Method": "post"
+            }
+          }
+        },
+        "VpcConfig": {
+          "SubnetIds": [
+            "subnet-263b1250",
+            "subnet-5866713c",
+            "subnet-cdee8995"
+          ],
+          "SecurityGroupIds": [
+            "sg-91c5a4e8"
+          ]
+        }
+      }
+    }
+  },
+  "Outputs" : {
+    
+  }
+}

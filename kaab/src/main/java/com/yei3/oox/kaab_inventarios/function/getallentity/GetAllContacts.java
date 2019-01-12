@@ -13,6 +13,7 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.yei3.oox.kaab_inventarios.database.entity.Contact;
 import com.yei3.oox.kaab_inventarios.database.util.Helper;
+import com.yei3.oox.kaab_inventarios.util.Error;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -61,7 +62,7 @@ public class GetAllContacts implements RequestStreamHandler {
         	 }
 			
 			errorCode.put("errorCode", 0);
-	        errorCode.put("message", "Success");
+			errorCode.put("message", Error.getErrorByCode(0));
 	        responseBody.put("contacts", list);
         } catch(Exception ex) {
         	errorCode.put("errorCode", -100);

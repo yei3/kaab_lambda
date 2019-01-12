@@ -13,8 +13,13 @@ import java.sql.Timestamp;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.yei3.oox.kaab_inventarios.database.entity.Company;
 import com.yei3.oox.kaab_inventarios.database.entity.Department;
+import com.yei3.oox.kaab_inventarios.database.entity.Status;
+import com.yei3.oox.kaab_inventarios.database.entity.User;
 import com.yei3.oox.kaab_inventarios.database.util.Helper;
+import com.yei3.oox.kaab_inventarios.util.Error;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -32,25 +37,42 @@ public class CreateDepartment implements RequestStreamHandler {
     	JSONObject responseBody = new JSONObject();
     	//context.getIdentity().getIdentityId()
         try {
+        	Helper h = new Helper(context);
         	JSONObject event = (JSONObject)parser.parse(reader);
         	JSONObject body = (JSONObject)parser.parse((String) event.get("body"));
         	Department department = new Department();
-        	
-        	department.setCompanyID(toIntExact((long) body.get("companyID")));
-        	department.setDepartmentType((String) body.get("departmentType"));
-        	department.setDepartmentID(toIntExact((long) body.get("departmentID")));
-        	department.setName((String) body.get("name"));
-        	department.setHeadDepartment((String) body.get("headDepartment"));
-        	department.setStatusID(toIntExact((long) body.get("statusID")));
-        	//TODO add cognito >:v
-        	department.setCreationUserID(toIntExact((long)body.get("userId")));
-        	department.setCreationDateTime(new Timestamp(System.currentTimeMillis()));
-        	
-        	Helper h = new Helper(context);
-        	
-        	h.insertItem(Department.class, department);
-        	errorCode.put("errorCode", 0);
-            errorCode.put("message", "Success");
+        	Company company = (Company)h.getItemById(Company.class, toIntExact((long) body.get("companyID")));
+        	if (company != null) {
+        		department.setCompanyID(toIntExact((long) body.get("companyID")));
+            	department.setDepartmentType((String) body.get("departmentType"));
+            	Department departmentRef = (Department)h.getItemById(Department.class, toIntExact((long) body.get("departmentID")));
+            	department.setDepartmentID(departmentRef == null ? 0 : toIntExact((long) body.get("departmentID")));
+            	department.setName((String) body.get("name"));
+            	department.setHeadDepartment((String) body.get("headDepartment"));
+            	Status status = (Status)h.getItemById(Status.class, toIntExact((long) body.get("statusID")));
+            	if (status != null) {
+            		department.setStatusID(toIntExact((long) body.get("statusID")));
+                	//TODO add cognito >:v
+            		User user = (User)h.getItemById(User.class, toIntExact((long)body.get("userId")));
+                	if (user != null) {
+                		department.setCreationUserID(toIntExact((long)body.get("userId")));
+                    	department.setCreationDateTime(new Timestamp(System.currentTimeMillis()));
+                    	
+                    	h.insertItem(Department.class, department);
+                    	errorCode.put("errorCode", 0);
+                        errorCode.put("message", Error.getErrorByCode(0));
+                	}else {
+                		errorCode.put("errorCode", -5);
+                        errorCode.put("message", Error.getErrorByCode(-5));
+                	}
+            	}else {
+            		errorCode.put("errorCode", -6);
+                    errorCode.put("message", Error.getErrorByCode(-6));
+            	}
+        	}else {
+        		errorCode.put("errorCode", -4);
+                errorCode.put("message", Error.getErrorByCode(-4));
+        	}
         } catch(Exception ex) {
         	errorCode.put("errorCode", -100);
             errorCode.put("message", ex.getMessage());

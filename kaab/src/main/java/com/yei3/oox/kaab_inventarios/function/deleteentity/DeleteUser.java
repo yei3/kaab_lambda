@@ -15,6 +15,8 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.yei3.oox.kaab_inventarios.database.entity.User;
 import com.yei3.oox.kaab_inventarios.database.util.Helper;
+import com.yei3.oox.kaab_inventarios.util.Error;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -38,17 +40,17 @@ public class DeleteUser implements RequestStreamHandler {
         	User user = (User)h.getItemById(User.class, toIntExact((long)body.get("id")));
         	
         	if (user != null) {
-            	user.setStatusID(toIntExact((long) body.get("statusID")));
+            	user.setStatusID(1);
             	//TODO add cognito >:v
             	user.setDeleteUserID(toIntExact((long)body.get("userId")));
             	user.setDeleteDateTime(new Timestamp(System.currentTimeMillis()));
             	
             	h.updateItem(User.class, user);
             	errorCode.put("errorCode", 0);
-                errorCode.put("message", "Success");
+                errorCode.put("message", Error.getErrorByCode(0));
         	}else {
         		errorCode.put("errorCode", -3);
-                errorCode.put("message", "The given id does not exists.");
+                errorCode.put("message", Error.getErrorByCode(-3));
         	}
         } catch(Exception ex) {
         	errorCode.put("errorCode", -100);

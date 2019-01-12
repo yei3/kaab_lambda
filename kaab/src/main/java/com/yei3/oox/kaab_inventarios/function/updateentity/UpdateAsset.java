@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import com.amazonaws.services.lambda.runtime.Context;
@@ -45,7 +46,7 @@ public class UpdateAsset implements RequestStreamHandler {
             	asset.setBrand((String) body.get("brand"));
             	asset.setModel((String) body.get("model"));
             	asset.setSerial((String) body.get("serial"));
-            	asset.setAcquisitionDate(Timestamp.valueOf((String) body.get("acquisitionDate")));
+            	asset.setAcquisitionDate(Date.valueOf((String) body.get("acquisitionDate")));
             	asset.setAcquisitionType((String) body.get("acquisitionType"));
             	asset.setInvoice((String) body.get("invoice"));
             	asset.setPrice((float) body.get("price"));
@@ -61,7 +62,6 @@ public class UpdateAsset implements RequestStreamHandler {
             	asset.setLocationID(toIntExact((long)body.get("locationID")));
             	asset.setLocationDetail((String) body.get("locationDetail"));
             	asset.setComments((String) body.get("comments"));
-            	asset.setImage((String) body.get("image"));
             	asset.setPersonalString01((String) body.get("personalString01"));
             	asset.setPersonalString02((String) body.get("personalString02"));
             	asset.setPersonalString03((String) body.get("personalString03"));

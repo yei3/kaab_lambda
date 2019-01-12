@@ -124,6 +124,45 @@
         }
       }
     },
+    "CreateAssetFile": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "com.yei3.oox.kaab_inventarios.function.createentity.CreateAssetFile",
+        "Runtime" : "java8",
+        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
+        "Policies": [
+          "AWSLambdaVPCAccessExecutionRole"
+        ],
+        "Environment" : {
+          "Variables" : {
+            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
+            "port" : "3306",
+            "db" : "kaab",
+            "username" : "root",
+            "password" : "password"
+          }
+        },
+        "Events": {
+          "GetResource": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/createAssetFile",
+              "Method": "post"
+            }
+          }
+        },
+        "VpcConfig": {
+          "SubnetIds": [
+            "subnet-263b1250",
+            "subnet-5866713c",
+            "subnet-cdee8995"
+          ],
+          "SecurityGroupIds": [
+            "sg-91c5a4e8"
+          ]
+        }
+      }
+    },
     "CreateCompany": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
@@ -147,6 +186,45 @@
             "Type": "Api",
             "Properties": {
               "Path": "/createCompany",
+              "Method": "post"
+            }
+          }
+        },
+        "VpcConfig": {
+          "SubnetIds": [
+            "subnet-263b1250",
+            "subnet-5866713c",
+            "subnet-cdee8995"
+          ],
+          "SecurityGroupIds": [
+            "sg-91c5a4e8"
+          ]
+        }
+      }
+    },
+    "CreateCompanyAccount": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "com.yei3.oox.kaab_inventarios.function.createentity.CreateCompanyAccount",
+        "Runtime" : "java8",
+        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
+        "Policies": [
+          "AWSLambdaVPCAccessExecutionRole"
+        ],
+        "Environment" : {
+          "Variables" : {
+            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
+            "port" : "3306",
+            "db" : "kaab",
+            "username" : "root",
+            "password" : "password"
+          }
+        },
+        "Events": {
+          "GetResource": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/createCompanyAccount",
               "Method": "post"
             }
           }
@@ -280,6 +358,45 @@
         }
       }
     },
+    "CreateFile": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "com.yei3.oox.kaab_inventarios.function.createentity.CreateFile",
+        "Runtime" : "java8",
+        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
+        "Policies": [
+          "AWSLambdaVPCAccessExecutionRole"
+        ],
+        "Environment" : {
+          "Variables" : {
+            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
+            "port" : "3306",
+            "db" : "kaab",
+            "username" : "root",
+            "password" : "password"
+          }
+        },
+        "Events": {
+          "GetResource": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/createFile",
+              "Method": "post"
+            }
+          }
+        },
+        "VpcConfig": {
+          "SubnetIds": [
+            "subnet-263b1250",
+            "subnet-5866713c",
+            "subnet-cdee8995"
+          ],
+          "SecurityGroupIds": [
+            "sg-91c5a4e8"
+          ]
+        }
+      }
+    },
     "CreateFinalAsset": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
@@ -381,6 +498,84 @@
             "Type": "Api",
             "Properties": {
               "Path": "/createLocationAddress",
+              "Method": "post"
+            }
+          }
+        },
+        "VpcConfig": {
+          "SubnetIds": [
+            "subnet-263b1250",
+            "subnet-5866713c",
+            "subnet-cdee8995"
+          ],
+          "SecurityGroupIds": [
+            "sg-91c5a4e8"
+          ]
+        }
+      }
+    },
+    "CreateMenu": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "com.yei3.oox.kaab_inventarios.function.createentity.CreateMenu",
+        "Runtime" : "java8",
+        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
+        "Policies": [
+          "AWSLambdaVPCAccessExecutionRole"
+        ],
+        "Environment" : {
+          "Variables" : {
+            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
+            "port" : "3306",
+            "db" : "kaab",
+            "username" : "root",
+            "password" : "password"
+          }
+        },
+        "Events": {
+          "GetResource": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/createMenu",
+              "Method": "post"
+            }
+          }
+        },
+        "VpcConfig": {
+          "SubnetIds": [
+            "subnet-263b1250",
+            "subnet-5866713c",
+            "subnet-cdee8995"
+          ],
+          "SecurityGroupIds": [
+            "sg-91c5a4e8"
+          ]
+        }
+      }
+    },
+    "CreateMenuRol": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "com.yei3.oox.kaab_inventarios.function.createentity.CreateMenuRol",
+        "Runtime" : "java8",
+        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
+        "Policies": [
+          "AWSLambdaVPCAccessExecutionRole"
+        ],
+        "Environment" : {
+          "Variables" : {
+            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
+            "port" : "3306",
+            "db" : "kaab",
+            "username" : "root",
+            "password" : "password"
+          }
+        },
+        "Events": {
+          "GetResource": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/createMenuRol",
               "Method": "post"
             }
           }
@@ -537,1098 +732,6 @@
             "Type": "Api",
             "Properties": {
               "Path": "/createUser",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "UpdateAccountingAccount": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.updateentity.UpdateAccountingAccount",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/updateAccountingAccount",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "UpdateAddress": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.updateentity.UpdateAddress",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/updateAddress",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "UpdateAsset": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.updateentity.UpdateAsset",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/updateAsset",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "UpdateCompany": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.updateentity.UpdateCompany",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/updateCompany",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "UpdateContact": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.updateentity.UpdateContact",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/updateContact",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "UpdateCostCenter": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.updateentity.UpdateCostCenter",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/updateCostCenter",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "UpdateDepartment": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.updateentity.UpdateDepartment",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/updateDepartment",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "UpdateFinalAsset": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.updateentity.UpdateFinalAsset",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/updateFinalAsset",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "UpdateLocation": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.updateentity.UpdateLocation",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/updateLocation",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "UpdateLocationAddress": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.updateentity.UpdateLocationAddress",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/updateLocationAddress",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "UpdateProject": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.updateentity.UpdateProject",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/updateProject",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "UpdateRegistrationSession": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.updateentity.UpdateRegistrationSession",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/updateRegistrationSession",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "UpdateStatus": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.updateentity.UpdateStatus",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/updateStatus",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "UpdateUser": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.updateentity.UpdateUser",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/updateUser",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "DeleteAccountingAccount": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.deleteentity.DeleteAccountingAccount",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/deleteAccountingAccount",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "DeleteAddress": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.deleteentity.DeleteAddress",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/deleteAddress",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "DeleteAsset": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.deleteentity.DeleteAsset",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/deleteAsset",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "DeleteCompany": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.deleteentity.DeleteCompany",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/deleteCompany",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "DeleteContact": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.deleteentity.DeleteContact",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/deleteContact",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "DeleteCostCenter": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.deleteentity.DeleteCostCenter",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/deleteCostCenter",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "DeleteDepartment": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.deleteentity.DeleteDepartment",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/deleteDepartment",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "DeleteFinalAsset": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.deleteentity.DeleteFinalAsset",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/deleteFinalAsset",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "DeleteLocation": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.deleteentity.DeleteLocation",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/deleteLocation",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "DeleteLocationAddress": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.deleteentity.DeleteLocationAddress",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/deleteLocationAddress",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "DeleteProject": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.deleteentity.DeleteProject",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/deleteProject",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "DeleteRegistrationSession": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.deleteentity.DeleteRegistrationSession",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/deleteRegistrationSession",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "DeleteStatus": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.deleteentity.DeleteStatus",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/deleteStatus",
-              "Method": "post"
-            }
-          }
-        },
-        "VpcConfig": {
-          "SubnetIds": [
-            "subnet-263b1250",
-            "subnet-5866713c",
-            "subnet-cdee8995"
-          ],
-          "SecurityGroupIds": [
-            "sg-91c5a4e8"
-          ]
-        }
-      }
-    },
-    "DeleteUser": {
-      "Type": "AWS::Serverless::Function",
-      "Properties": {
-        "Handler": "com.yei3.oox.kaab_inventarios.function.deleteentity.DeleteUser",
-        "Runtime" : "java8",
-        "CodeUri" : "./target/kaab_inventarios-1.0.0.jar",
-        "Policies": [
-          "AWSLambdaVPCAccessExecutionRole"
-        ],
-        "Environment" : {
-          "Variables" : {
-            "host" : "jdbc:mysql://devdb2.ckdd3uynsupw.us-west-2.rds.amazonaws.com",
-            "port" : "3306",
-            "db" : "kaab",
-            "username" : "root",
-            "password" : "password"
-          }
-        },
-        "Events": {
-          "GetResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/deleteUser",
               "Method": "post"
             }
           }

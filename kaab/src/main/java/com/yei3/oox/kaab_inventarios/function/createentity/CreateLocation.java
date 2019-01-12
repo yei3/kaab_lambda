@@ -14,7 +14,11 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.yei3.oox.kaab_inventarios.database.entity.Location;
+import com.yei3.oox.kaab_inventarios.database.entity.Status;
+import com.yei3.oox.kaab_inventarios.database.entity.User;
 import com.yei3.oox.kaab_inventarios.database.util.Helper;
+import com.yei3.oox.kaab_inventarios.util.Error;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -32,23 +36,35 @@ public class CreateLocation implements RequestStreamHandler {
     	JSONObject responseBody = new JSONObject();
     	//context.getIdentity().getIdentityId()
         try {
+        	Helper h = new Helper(context);
         	JSONObject event = (JSONObject)parser.parse(reader);
         	JSONObject body = (JSONObject)parser.parse((String) event.get("body"));
         	Location location = new Location();
         	
         	location.setLocationType( (String)body.get("locationType"));
-        	location.setLocationID(toIntExact((long) body.get("locationID")));
+        	Location locationRef = (Location)h.getItemById(Location.class, toIntExact((long) body.get("locationID")));
+        	location.setLocationID(locationRef == null ? 0 : toIntExact((long) body.get("locationID")));
         	location.setName((String) body.get("name"));
-        	location.setStatusID(toIntExact((long) body.get("statusID")));
-        	//TODO add cognito >:v
-        	location.setCreationUserID(toIntExact((long)body.get("userId")));
-        	location.setCreationDateTime(new Timestamp(System.currentTimeMillis()));
-        	
-        	Helper h = new Helper(context);
-        	
-        	h.insertItem(Location.class, location);
-        	errorCode.put("errorCode", 0);
-            errorCode.put("message", "Success");
+        	Status status = (Status)h.getItemById(Status.class, toIntExact((long) body.get("statusID")));
+        	if (status != null) {
+        		location.setStatusID(toIntExact((long) body.get("statusID")));
+            	//TODO add cognito >:v
+        		User user = (User)h.getItemById(User.class, toIntExact((long)body.get("userId")));
+            	if (user != null) {
+            		location.setCreationUserID(toIntExact((long)body.get("userId")));
+                	location.setCreationDateTime(new Timestamp(System.currentTimeMillis()));
+                	
+                	h.insertItem(Location.class, location);
+                	errorCode.put("errorCode", 0);
+                    errorCode.put("message", Error.getErrorByCode(0));
+            	}else {
+            		errorCode.put("errorCode", -5);
+                    errorCode.put("message", Error.getErrorByCode(-5));
+            	}
+        	}else {
+        		errorCode.put("errorCode", -6);
+                errorCode.put("message", Error.getErrorByCode(-6));
+        	}
         } catch(Exception ex) {
         	errorCode.put("errorCode", -100);
             errorCode.put("message", ex.getMessage());

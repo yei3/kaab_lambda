@@ -13,6 +13,7 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.yei3.oox.kaab_inventarios.database.entity.FinalAsset;
 import com.yei3.oox.kaab_inventarios.database.util.Helper;
+import com.yei3.oox.kaab_inventarios.util.Error;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -45,14 +46,14 @@ public class GetAllFinalAssets implements RequestStreamHandler {
 				finalAssetJson.put("id", finalAsset.getId());
        		 	finalAssetJson.put("projectID", finalAsset.getProjectID());
        		 	finalAssetJson.put("registrationSessionID", finalAsset.getRegistrationSessionID());
-       		 	finalAssetJson.put("lastRegistration", finalAsset.isLastRegistration());
+       		 	finalAssetJson.put("lastRegistration", finalAsset.getLastRegistration());
        		 	finalAssetJson.put("keyField", finalAsset.getKeyField());
        		 	finalAssetJson.put("asset", finalAsset.getAsset());
        		 	finalAssetJson.put("description", finalAsset.getDescription());
        		 	finalAssetJson.put("brand", finalAsset.getBrand());
        		 	finalAssetJson.put("model", finalAsset.getModel());
        		 	finalAssetJson.put("serial", finalAsset.getSerial());
-            	finalAssetJson.put("acquisitionDate", finalAsset.getAcquisitionDate());
+            	finalAssetJson.put("acquisitionDate", finalAsset.getAcquisitionDate().toString());
             	finalAssetJson.put("acquisitionType", finalAsset.getAcquisitionType());
             	finalAssetJson.put("invoice", finalAsset.getInvoice());
             	finalAssetJson.put("price", finalAsset.getPrice());
@@ -68,7 +69,6 @@ public class GetAllFinalAssets implements RequestStreamHandler {
             	finalAssetJson.put("locationID", finalAsset.getLocationID());
             	finalAssetJson.put("locationDetail", finalAsset.getLocationDetail());
             	finalAssetJson.put("comments", finalAsset.getComments());
-            	finalAssetJson.put("image", finalAsset.getImage());
             	finalAssetJson.put("personalString01", finalAsset.getPersonalString01());
             	finalAssetJson.put("personalString02", finalAsset.getPersonalString02());
             	finalAssetJson.put("personalString03", finalAsset.getPersonalString03());
@@ -85,7 +85,7 @@ public class GetAllFinalAssets implements RequestStreamHandler {
         	 }
 			
 			errorCode.put("errorCode", 0);
-	        errorCode.put("message", "Success");
+			errorCode.put("message", Error.getErrorByCode(0));
 	        responseBody.put("finalAssets", list);
         } catch(Exception ex) {
         	errorCode.put("errorCode", -100);

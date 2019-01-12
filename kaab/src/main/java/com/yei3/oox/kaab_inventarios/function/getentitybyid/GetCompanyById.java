@@ -41,6 +41,7 @@ public class GetCompanyById implements RequestStreamHandler {
                 		 JSONObject companyJson = new JSONObject();
                 		 
                 		 companyJson.put("id", company.getId());
+                		 companyJson.put("companyAccountID", company.getCompanyAccountID());
                 		 companyJson.put("companyType", company.getCompanyType());
                 		 companyJson.put("industryType", company.getIndustryType());
                 		 companyJson.put("name", company.getName());

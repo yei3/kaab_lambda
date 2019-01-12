@@ -38,6 +38,7 @@ public class UpdateUser implements RequestStreamHandler {
         	User user = (User)h.getItemById(User.class, toIntExact((long)body.get("id")));
         	
         	if (user != null) {
+        		user.setCompanyAccountID(toIntExact((long) body.get("companyAccountID")));
         		user.setRole((String) body.get("role"));
             	user.setUser((String) body.get("user"));
             	user.setNames((String) body.get("names"));

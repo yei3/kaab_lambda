@@ -39,6 +39,7 @@ public class DeleteRegistrationSession implements RequestStreamHandler {
         	
         	if (registrationSession != null) {
             	//TODO add cognito >:v
+        		
             	registrationSession.setDeleteUserID(toIntExact((long)body.get("userId")));
             	registrationSession.setDeleteDateTime(new Timestamp(System.currentTimeMillis()));
             	

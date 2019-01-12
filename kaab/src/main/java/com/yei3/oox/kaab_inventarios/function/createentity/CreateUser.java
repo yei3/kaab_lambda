@@ -13,8 +13,12 @@ import java.sql.Timestamp;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.yei3.oox.kaab_inventarios.database.entity.CompanyAccount;
+import com.yei3.oox.kaab_inventarios.database.entity.Status;
 import com.yei3.oox.kaab_inventarios.database.entity.User;
 import com.yei3.oox.kaab_inventarios.database.util.Helper;
+import com.yei3.oox.kaab_inventarios.util.Error;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -32,25 +36,43 @@ public class CreateUser implements RequestStreamHandler {
     	JSONObject responseBody = new JSONObject();
     	//context.getIdentity().getIdentityId()
         try {
+        	Helper h = new Helper(context);
         	JSONObject event = (JSONObject)parser.parse(reader);
         	JSONObject body = (JSONObject)parser.parse((String) event.get("body"));
         	User user = new User();
         	
         	user.setRole((String) body.get("role"));
         	user.setUser((String) body.get("user"));
-        	user.setNames((String) body.get("names"));
-        	user.setLastname((String) body.get("lastname"));
-        	user.setMiddlename((String) body.get("middlename"));
-        	user.setStatusID(toIntExact((long) body.get("statusID")));
-        	//TODO add cognito >:v
-        	user.setCreationUserID(toIntExact((long)body.get("userId")));
-        	user.setCreationDateTime(new Timestamp(System.currentTimeMillis()));
-        	
-        	Helper h = new Helper(context);
-        	
-        	h.insertItem(User.class, user);
-        	errorCode.put("errorCode", 0);
-            errorCode.put("message", "Success");
+        	CompanyAccount companyAccount = (CompanyAccount)h.getItemById(CompanyAccount.class, toIntExact((long) body.get("companyAccountID")));
+        	if (companyAccount != null) {
+        		user.setCompanyAccountID(toIntExact((long) body.get("companyAccountID")));
+            	user.setNames((String) body.get("names"));
+            	user.setLastname((String) body.get("lastname"));
+            	user.setMiddlename((String) body.get("middlename"));
+            	Status status = (Status)h.getItemById(Status.class, toIntExact((long) body.get("statusID")));
+            	if (status != null) {
+            		user.setStatusID(toIntExact((long) body.get("statusID")));
+                	//TODO add cognito >:v
+            		User userRef = (User)h.getItemById(User.class, toIntExact((long)body.get("userId")));
+                	if (userRef != null) {
+                		user.setCreationUserID(toIntExact((long)body.get("userId")));
+                    	user.setCreationDateTime(new Timestamp(System.currentTimeMillis()));
+                    	
+                    	h.insertItem(User.class, user);
+                    	errorCode.put("errorCode", 0);
+                    	errorCode.put("message", Error.getErrorByCode(0));
+                	}else {
+                		errorCode.put("errorCode", -5);
+                    	errorCode.put("message", Error.getErrorByCode(-5));
+                	}
+            	}else {
+            		errorCode.put("errorCode", -6);
+                	errorCode.put("message", Error.getErrorByCode(-6));
+            	}
+        	}else {
+        		errorCode.put("errorCode", -12);
+            	errorCode.put("message", Error.getErrorByCode(-12));
+        	}
         } catch(Exception ex) {
         	errorCode.put("errorCode", -100);
             errorCode.put("message", ex.getMessage());

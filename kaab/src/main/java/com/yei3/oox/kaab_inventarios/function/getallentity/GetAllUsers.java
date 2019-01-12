@@ -13,6 +13,7 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.yei3.oox.kaab_inventarios.database.entity.User;
 import com.yei3.oox.kaab_inventarios.database.util.Helper;
+import com.yei3.oox.kaab_inventarios.util.Error;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -43,6 +44,7 @@ public class GetAllUsers implements RequestStreamHandler {
 				userJson = new JSONObject();
         		 
 				userJson.put("id", user.getId());
+				userJson.put("companyAccountID", user.getCompanyAccountID());
        		 	userJson.put("role", user.getRole());
        		 	userJson.put("user", user.getUser());
        		 	userJson.put("names", user.getNames());
@@ -53,7 +55,7 @@ public class GetAllUsers implements RequestStreamHandler {
         	 }
 			
 			errorCode.put("errorCode", 0);
-	        errorCode.put("message", "Success");
+			errorCode.put("message", Error.getErrorByCode(0));
 	        responseBody.put("users", list);
         } catch(Exception ex) {
         	errorCode.put("errorCode", -100);

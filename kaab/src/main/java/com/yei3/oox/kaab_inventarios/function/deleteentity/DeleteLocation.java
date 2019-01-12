@@ -14,7 +14,10 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.yei3.oox.kaab_inventarios.database.entity.Location;
+import com.yei3.oox.kaab_inventarios.database.entity.User;
 import com.yei3.oox.kaab_inventarios.database.util.Helper;
+import com.yei3.oox.kaab_inventarios.util.Error;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -38,17 +41,23 @@ public class DeleteLocation implements RequestStreamHandler {
         	Location location = (Location)h.getItemById(Location.class, toIntExact((long)body.get("id")));
         	
         	if (location != null) {
-            	location.setStatusID(toIntExact((long) body.get("statusID")));
+            	location.setStatusID(1);
             	//TODO add cognito >:v
-            	location.setDeleteUserID(toIntExact((long)body.get("userId")));
-            	location.setDeleteDateTime(new Timestamp(System.currentTimeMillis()));
-            	
-            	h.updateItem(Location.class, location);
-            	errorCode.put("errorCode", 0);
-                errorCode.put("message", "Success");
+            	User user = (User)h.getItemById(User.class, toIntExact((long)body.get("userId")));
+            	if (user != null) {
+            		location.setDeleteUserID(toIntExact((long)body.get("userId")));
+                	location.setDeleteDateTime(new Timestamp(System.currentTimeMillis()));
+                	
+                	h.updateItem(Location.class, location);
+                	errorCode.put("errorCode", 0);
+                    errorCode.put("message", Error.getErrorByCode(0));
+            	}else {
+            		errorCode.put("errorCode", -5);
+                    errorCode.put("message", Error.getErrorByCode(-5));
+            	}
         	}else {
         		errorCode.put("errorCode", -3);
-                errorCode.put("message", "The given id does not exists.");
+                errorCode.put("message", Error.getErrorByCode(-3));
         	}
         } catch(Exception ex) {
         	errorCode.put("errorCode", -100);

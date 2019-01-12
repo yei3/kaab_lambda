@@ -13,6 +13,7 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.yei3.oox.kaab_inventarios.database.entity.Asset;
 import com.yei3.oox.kaab_inventarios.database.util.Helper;
+import com.yei3.oox.kaab_inventarios.util.Error;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -50,7 +51,7 @@ public class GetAllAssets implements RequestStreamHandler {
        		 	assetJson.put("brand", asset.getBrand());
        		 	assetJson.put("model", asset.getModel());
        		 	assetJson.put("serial", asset.getSerial());
-       		 	assetJson.put("acquisitionDate", asset.getAcquisitionDate());
+       		 	assetJson.put("acquisitionDate", asset.getAcquisitionDate().toString());
        		 	assetJson.put("acquisitionType", asset.getAcquisitionType());
             	assetJson.put("invoice", asset.getInvoice());
             	assetJson.put("price", asset.getPrice());
@@ -66,7 +67,6 @@ public class GetAllAssets implements RequestStreamHandler {
             	assetJson.put("locationID", asset.getLocationID());
             	assetJson.put("locationDetail", asset.getLocationDetail());
             	assetJson.put("comments", asset.getComments());
-            	assetJson.put("image", asset.getImage());
             	assetJson.put("personalString01", asset.getPersonalString01());
             	assetJson.put("personalString02", asset.getPersonalString02());
             	assetJson.put("personalString03", asset.getPersonalString03());
@@ -83,7 +83,7 @@ public class GetAllAssets implements RequestStreamHandler {
         	 }
 			
 			errorCode.put("errorCode", 0);
-	        errorCode.put("message", "Success");
+			errorCode.put("message", Error.getErrorByCode(0));
 	        responseBody.put("assets", list);
         } catch(Exception ex) {
         	errorCode.put("errorCode", -100);

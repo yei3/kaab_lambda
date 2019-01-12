@@ -1,9 +1,11 @@
 package com.yei3.oox.kaab_inventarios.database.entity;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 public class Company implements Entity{
 	private int id;
+	private int companyAccountID;
 	private String companyType;
 	private String industryType;
 	private String name;
@@ -21,6 +23,7 @@ public class Company implements Entity{
 	
 	private String[] columns = {
 			"id",
+			"companyAccountID",
 			"companyType",
 			"industryType",
 			"name",
@@ -37,6 +40,7 @@ public class Company implements Entity{
 	
 	private Class[] types = {
 			int.class,
+			int.class,
 			String.class,
 			String.class,
 			String.class,
@@ -51,16 +55,9 @@ public class Company implements Entity{
 			int.class
 			};
 	
-	@Override
-	public String toString() {
-		return "Company [id=" + id + ", companyType=" + companyType + ", industryType=" + industryType + ", name="
-				+ name + ", fiscalID=" + fiscalID + ", addressID=" + addressID + ", statusID=" + statusID
-				+ ", creationDateTime=" + creationDateTime + ", lastModDateTime=" + lastModDateTime
-				+ ", deleteDateTime=" + deleteDateTime + ", creationUserID=" + creationUserID + ", lastModUserID="
-				+ lastModUserID + ", deleteUserID=" + deleteUserID + "]";
-	}
 	
-	public Company(String companyType, String industryType, String name, String fiscalID, int addressID, int statusID) {
+	public Company(int companyAccountID, String companyType, String industryType, String name, String fiscalID, int addressID, int statusID) {
+		this.companyAccountID = companyAccountID;
 		this.companyType = companyType;
 		this.industryType = industryType;
 		this.name = name;
@@ -69,6 +66,32 @@ public class Company implements Entity{
 		this.statusID = statusID;
 	}
 	
+	
+	@Override
+	public String toString() {
+		return "Company [id=" + id + ", companyAccountID=" + companyAccountID + ", companyType=" + companyType
+				+ ", industryType=" + industryType + ", name=" + name + ", fiscalID=" + fiscalID + ", addressID="
+				+ addressID + ", statusID=" + statusID + ", creationDateTime=" + creationDateTime + ", lastModDateTime="
+				+ lastModDateTime + ", deleteDateTime=" + deleteDateTime + ", creationUserID=" + creationUserID
+				+ ", lastModUserID=" + lastModUserID + ", deleteUserID=" + deleteUserID + "]";
+	}
+ 
+
+	public int getCompanyAccountID() {
+		return companyAccountID;
+	}
+
+
+	public void setCompanyAccountID(int companyAccountID) {
+		this.companyAccountID = companyAccountID;
+	}
+
+
+	public void setColumns(String[] columns) {
+		this.columns = columns;
+	}
+
+
 	public Company() {
 		
 	}

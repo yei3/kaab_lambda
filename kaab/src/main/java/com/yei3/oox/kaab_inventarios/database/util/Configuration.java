@@ -42,8 +42,9 @@ public class Configuration {
 			if (rs.next()) {
 				res = cls.newInstance();
 				for (int i = 0; i < columns.length; i++) {
+					
 					method = cls.getDeclaredMethod("set" + columns[i].substring(0, 1).toUpperCase() + columns[i].substring(1),types[i]);
-					method.invoke(res,rs.getObject(columns[i]));
+					method.invoke(res,types[i] == int.class ? (rs.getObject(columns[i]) == null ? 0 : rs.getObject(columns[i])) : rs.getObject(columns[i]));
 				}
 			}else {
 				logger.log("No hay registros.");
@@ -66,6 +67,7 @@ public class Configuration {
 			while (rs.next()) {
 				Object obj = cls.newInstance();
 				for (int i = 0; i < columns.length; i++) {
+					logger.log("Debug, " + "set" + columns[i].substring(0, 1).toUpperCase() + columns[i].substring(1) + " Type: " + types[i]);
 					method = cls.getDeclaredMethod("set" + columns[i].substring(0, 1).toUpperCase() + columns[i].substring(1),types[i]);
 					method.invoke(obj,types[i] == int.class ? (rs.getObject(columns[i]) == null ? 0 : rs.getObject(columns[i])) : rs.getObject(columns[i]));
 				}

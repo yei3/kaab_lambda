@@ -14,7 +14,10 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.yei3.oox.kaab_inventarios.database.entity.Asset;
+import com.yei3.oox.kaab_inventarios.database.entity.User;
 import com.yei3.oox.kaab_inventarios.database.util.Helper;
+import com.yei3.oox.kaab_inventarios.util.Error;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -38,17 +41,23 @@ public class DeleteAsset implements RequestStreamHandler {
         	Asset asset = (Asset)h.getItemById(Asset.class, toIntExact((long)body.get("id")));
         	
         	if (asset != null) {
-            	asset.setStatusID(toIntExact((long) body.get("statusID")));
+            	asset.setStatusID(1);
             	//TODO add cognito >:v
-            	asset.setDeleteUserID(toIntExact((long)body.get("userId")));
-            	asset.setDeleteDateTime(new Timestamp(System.currentTimeMillis()));
-            	
-            	h.updateItem(Asset.class, asset);
-            	errorCode.put("errorCode", 0);
-                errorCode.put("message", "Success");
+            	User user = (User)h.getItemById(User.class, toIntExact((long)body.get("userId")));
+            	if (user != null) {
+            		asset.setDeleteUserID(toIntExact((long)body.get("userId")));
+                	asset.setDeleteDateTime(new Timestamp(System.currentTimeMillis()));
+                	
+                	h.updateItem(Asset.class, asset);
+                	errorCode.put("errorCode", 0);
+                    errorCode.put("message", Error.getErrorByCode(0));
+            	}else {
+            		errorCode.put("errorCode", -5);
+                    errorCode.put("message", Error.getErrorByCode(-5));
+            	}
         	}else {
         		errorCode.put("errorCode", -3);
-                errorCode.put("message", "The given id does not exists.");
+                errorCode.put("message", Error.getErrorByCode(-3));
         	}
         	
         } catch(Exception ex) {

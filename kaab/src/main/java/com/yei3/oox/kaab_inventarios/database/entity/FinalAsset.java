@@ -1,6 +1,7 @@
 package com.yei3.oox.kaab_inventarios.database.entity;
 
 import java.sql.Timestamp;
+import java.sql.Date;
 
 public class FinalAsset implements Entity{
 	private int id;
@@ -13,15 +14,15 @@ public class FinalAsset implements Entity{
 	private String brand;
 	private String model;
 	private String serial;
-	private Timestamp acquisitionDate;
+	private Date acquisitionDate;
 	private String acquisitionType;
 	private String invoice;
-	private float price;
-	private float tax;
-	private float cost;
-	private float currentValue;
-	private float accountingDepreciation;
-	private float fiscalDepreciation;
+	private double price;
+	private double tax;
+	private double cost;
+	private double currentValue;
+	private double accountingDepreciation;
+	private double fiscalDepreciation;
 	private int lastDepartmentID;
 	private int currentDepartmentID;
 	private int costCenterID;
@@ -29,7 +30,6 @@ public class FinalAsset implements Entity{
 	private int locationID;
 	private String locationDetail;
 	private String comments;
-	private String image;
 	private String personalString01;
 	private String personalString02;
 	private String personalString03;
@@ -38,9 +38,9 @@ public class FinalAsset implements Entity{
 	private int personalInt01;
 	private int personalInt02;
 	private int personalInt03;
-	private float personalFloat01;
-	private float personalFloat02;
-	private float personalFloat03;
+	private double personalFloat01;
+	private double personalFloat02;
+	private double personalFloat03;
 	private int statusID;
 	private Timestamp creationDateTime;
 	private Timestamp lastModDateTime;
@@ -78,7 +78,6 @@ public class FinalAsset implements Entity{
 			"locationID",
 			"locationDetail",
 			"comments",
-			"image",
 			"personalString01",
 			"personalString02",
 			"personalString03",
@@ -110,15 +109,15 @@ public class FinalAsset implements Entity{
 			String.class,
 			String.class,
 			String.class,
-			Timestamp.class,
+			Date.class,
 			String.class,
 			String.class,
-			float.class,
-			float.class,
-			float.class,
-			float.class,
-			float.class,
-			float.class,
+			double.class,
+			double.class,
+			double.class,
+			double.class,
+			double.class,
+			double.class,
 			int.class,
 			int.class,
 			int.class,
@@ -131,13 +130,12 @@ public class FinalAsset implements Entity{
 			String.class,
 			String.class,
 			String.class,
-			String.class,
 			int.class,
 			int.class,
 			int.class,
-			float.class,
-			float.class,
-			float.class,
+			double.class,
+			double.class,
+			double.class,
 			int.class,
 			Timestamp.class,
 			Timestamp.class,
@@ -157,8 +155,8 @@ public class FinalAsset implements Entity{
 				+ ", accountingDepreciation=" + accountingDepreciation + ", fiscalDepreciation=" + fiscalDepreciation
 				+ ", lastDepartmentID=" + lastDepartmentID + ", currentDepartmentID=" + currentDepartmentID
 				+ ", costCenterID=" + costCenterID + ", acountingAccountID=" + acountingAccountID + ", locationID="
-				+ locationID + ", locationDetail=" + locationDetail + ", comments=" + comments + ", image=" + image
-				+ ", personalString01=" + personalString01 + ", personalString02=" + personalString02
+				+ locationID + ", locationDetail=" + locationDetail + ", comments=" + comments + ", personalString01="
+				+ personalString01 + ", personalString02=" + personalString02
 				+ ", personalString03=" + personalString03 + ", personalString04=" + personalString04
 				+ ", personalString05=" + personalString05 + ", personalInt01=" + personalInt01 + ", personalInt02="
 				+ personalInt02 + ", personalInt03=" + personalInt03 + ", personalFloat01=" + personalFloat01
@@ -169,13 +167,13 @@ public class FinalAsset implements Entity{
 	}
 	
 	public FinalAsset(int projectID, int registrationSessionID, boolean lastRegistration, String keyField, String asset,
-			String description, String brand, String model, String serial, Timestamp acquisitionDate, String acquisitionType,
-			String invoice, float price, float tax, float cost, float currentValue, float accountingDepreciation,
-			float fiscalDepreciation, int lastDepartmentID, int currentDepartmentID, int costCenterID,
-			int acountingAccountID, int locationID, String locationDetail, String comments, String image,
+			String description, String brand, String model, String serial, Date acquisitionDate, String acquisitionType,
+			String invoice, double price, double tax, double cost, double currentValue, double accountingDepreciation,
+			double fiscalDepreciation, int lastDepartmentID, int currentDepartmentID, int costCenterID,
+			int acountingAccountID, int locationID, String locationDetail, String comments,
 			String personalString01, String personalString02, String personalString03, String personalString04,
-			String personalString05, int personalInt01, int personalInt02, int personalInt03, float personalFloat01,
-			float personalFloat02, float personalFloat03, int statusID) {
+			String personalString05, int personalInt01, int personalInt02, int personalInt03, double personalFloat01,
+			double personalFloat02, double personalFloat03, int statusID) {
 		this.projectID = projectID;
 		this.registrationSessionID = registrationSessionID;
 		this.lastRegistration = lastRegistration;
@@ -201,7 +199,6 @@ public class FinalAsset implements Entity{
 		this.locationID = locationID;
 		this.locationDetail = locationDetail;
 		this.comments = comments;
-		this.image = image;
 		this.personalString01 = personalString01;
 		this.personalString02 = personalString02;
 		this.personalString03 = personalString03;
@@ -238,7 +235,7 @@ public class FinalAsset implements Entity{
 	public void setRegistrationSessionID(int registrationSessionID) {
 		this.registrationSessionID = registrationSessionID;
 	}
-	public boolean isLastRegistration() {
+	public boolean getLastRegistration() {
 		return lastRegistration;
 	}
 	public void setLastRegistration(boolean lastRegistration) {
@@ -280,10 +277,10 @@ public class FinalAsset implements Entity{
 	public void setSerial(String serial) {
 		this.serial = serial;
 	}
-	public Timestamp getAcquisitionDate() {
+	public Date getAcquisitionDate() {
 		return acquisitionDate;
 	}
-	public void setAcquisitionDate(Timestamp acquisitionDate) {
+	public void setAcquisitionDate(Date acquisitionDate) {
 		this.acquisitionDate = acquisitionDate;
 	}
 	public String getAcquisitionType() {
@@ -298,40 +295,40 @@ public class FinalAsset implements Entity{
 	public void setInvoice(String invoice) {
 		this.invoice = invoice;
 	}
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
-	public float getTax() {
+	public double getTax() {
 		return tax;
 	}
-	public void setTax(float tax) {
+	public void setTax(double tax) {
 		this.tax = tax;
 	}
-	public float getCost() {
+	public double getCost() {
 		return cost;
 	}
-	public void setCost(float cost) {
+	public void setCost(double cost) {
 		this.cost = cost;
 	}
-	public float getCurrentValue() {
+	public double getCurrentValue() {
 		return currentValue;
 	}
-	public void setCurrentValue(float currentValue) {
+	public void setCurrentValue(double currentValue) {
 		this.currentValue = currentValue;
 	}
-	public float getAccountingDepreciation() {
+	public double getAccountingDepreciation() {
 		return accountingDepreciation;
 	}
-	public void setAccountingDepreciation(float accountingDepreciation) {
+	public void setAccountingDepreciation(double accountingDepreciation) {
 		this.accountingDepreciation = accountingDepreciation;
 	}
-	public float getFiscalDepreciation() {
+	public double getFiscalDepreciation() {
 		return fiscalDepreciation;
 	}
-	public void setFiscalDepreciation(float fiscalDepreciation) {
+	public void setFiscalDepreciation(double fiscalDepreciation) {
 		this.fiscalDepreciation = fiscalDepreciation;
 	}
 	public int getLastDepartmentID() {
@@ -375,12 +372,6 @@ public class FinalAsset implements Entity{
 	}
 	public void setComments(String comments) {
 		this.comments = comments;
-	}
-	public String getImage() {
-		return image;
-	}
-	public void setImage(String image) {
-		this.image = image;
 	}
 	public String getPersonalString01() {
 		return personalString01;
@@ -430,22 +421,22 @@ public class FinalAsset implements Entity{
 	public void setPersonalInt03(int personalInt03) {
 		this.personalInt03 = personalInt03;
 	}
-	public float getPersonalFloat01() {
+	public double getPersonalFloat01() {
 		return personalFloat01;
 	}
-	public void setPersonalFloat01(float personalFloat01) {
+	public void setPersonalFloat01(double personalFloat01) {
 		this.personalFloat01 = personalFloat01;
 	}
-	public float getPersonalFloat02() {
+	public double getPersonalFloat02() {
 		return personalFloat02;
 	}
-	public void setPersonalFloat02(float personalFloat02) {
+	public void setPersonalFloat02(double personalFloat02) {
 		this.personalFloat02 = personalFloat02;
 	}
-	public float getPersonalFloat03() {
+	public double getPersonalFloat03() {
 		return personalFloat03;
 	}
-	public void setPersonalFloat03(float personalFloat03) {
+	public void setPersonalFloat03(double personalFloat03) {
 		this.personalFloat03 = personalFloat03;
 	}
 	public int getStatusID() {

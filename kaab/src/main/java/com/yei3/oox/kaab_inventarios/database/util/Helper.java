@@ -103,12 +103,26 @@ public class Helper {
 			String [] columns = (String[])method.invoke(cls.newInstance());
 			query += "(";
 			for (int i = 0; i < columns.length; i++) {
-				query += columns[i];
+				query += "`" + columns[i] + "`";
 				query += (i + 1) == columns.length ? ") VALUES(" : ", "; 
 			}
 			for (int i = 0; i < columns.length; i++) {
 				method = cls.getDeclaredMethod("get" + columns[i].substring(0, 1).toUpperCase() + columns[i].substring(1));
-				query += (method.invoke(obj) == null ? "null" : "'" + method.invoke(obj).toString() + "'");
+				if (method.invoke(obj) != null) {
+					switch (method.invoke(obj).toString()) {
+					case "false":
+						query += "'" + 0 + "'";
+						break;
+					case "true":
+						query += "'" + 1 + "'";
+						break;
+					default:
+						query += ((method.invoke(obj) == null || method.invoke(obj).toString().equals("0")) ? "null" : "'" + method.invoke(obj).toString() + "'");
+					}
+				}else {
+					query += ((method.invoke(obj) == null || method.invoke(obj).toString().equals("0")) ? "null" : "'" + method.invoke(obj).toString() + "'");
+				}
+				
 				query += (i + 1) == columns.length ? ")" : ", "; 
 			}
 			logger.log(query);

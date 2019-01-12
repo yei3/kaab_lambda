@@ -13,6 +13,8 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.yei3.oox.kaab_inventarios.database.entity.Status;
 import com.yei3.oox.kaab_inventarios.database.util.Helper;
+import com.yei3.oox.kaab_inventarios.util.Error;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import static java.lang.Math.toIntExact;
@@ -46,7 +48,7 @@ public class CreateStatus implements RequestStreamHandler {
         	
         	h.insertItem(Status.class, status);
         	errorCode.put("errorCode", 0);
-            errorCode.put("message", "Success");
+        	errorCode.put("message", Error.getErrorByCode(0));
         } catch(Exception ex) {
         	errorCode.put("errorCode", -100);
             errorCode.put("message", ex.getMessage());

@@ -59,7 +59,7 @@ public class GetFinalAssetsByFilters implements RequestStreamHandler {
             				finalAssetJson.put("id", finalAsset.getId());
                    		 	finalAssetJson.put("projectID", finalAsset.getProjectID());
                    		 	finalAssetJson.put("registrationSessionID", finalAsset.getRegistrationSessionID());
-                   		 	finalAssetJson.put("lastRegistration", finalAsset.isLastRegistration());
+                   		 	finalAssetJson.put("lastRegistration", finalAsset.getLastRegistration());
                    		 	finalAssetJson.put("keyField", finalAsset.getKeyField());
                    		 	finalAssetJson.put("asset", finalAsset.getAsset());
                    		 	finalAssetJson.put("description", finalAsset.getDescription());
@@ -82,7 +82,6 @@ public class GetFinalAssetsByFilters implements RequestStreamHandler {
                         	finalAssetJson.put("locationID", finalAsset.getLocationID());
                         	finalAssetJson.put("locationDetail", finalAsset.getLocationDetail());
                         	finalAssetJson.put("comments", finalAsset.getComments());
-                        	finalAssetJson.put("image", finalAsset.getImage());
                         	finalAssetJson.put("personalString01", finalAsset.getPersonalString01());
                         	finalAssetJson.put("personalString02", finalAsset.getPersonalString02());
                         	finalAssetJson.put("personalString03", finalAsset.getPersonalString03());

@@ -57,6 +57,7 @@ public class GetCompaniesByFilters implements RequestStreamHandler {
             				companyJson = new JSONObject();
                     		 
             				companyJson.put("id", company.getId());
+            				companyJson.put("companyAccountID", company.getCompanyAccountID());
                    		 	companyJson.put("companyType", company.getCompanyType());
                    		 	companyJson.put("industryType", company.getIndustryType());
                    		 	companyJson.put("name", company.getName());

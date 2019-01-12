@@ -14,7 +14,11 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.yei3.oox.kaab_inventarios.database.entity.Address;
+import com.yei3.oox.kaab_inventarios.database.entity.Status;
+import com.yei3.oox.kaab_inventarios.database.entity.User;
 import com.yei3.oox.kaab_inventarios.database.util.Helper;
+import com.yei3.oox.kaab_inventarios.util.Error;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -32,6 +36,7 @@ public class CreateAddress implements RequestStreamHandler {
     	JSONObject responseBody = new JSONObject();
     	//context.getIdentity().getIdentityId()
         try {
+        	Helper h = new Helper(context);
         	JSONObject event = (JSONObject)parser.parse(reader);
         	JSONObject body = (JSONObject)parser.parse((String) event.get("body"));
         	Address address = new Address();
@@ -52,14 +57,24 @@ public class CreateAddress implements RequestStreamHandler {
         	address.setPhoneNumber2((String) body.get("phoneNumber2"));
         	address.setStatusID(toIntExact((long) body.get("statusID")));
         	//TODO add cognito >:v
-        	address.setCreationUserID(toIntExact((long)body.get("userId")));
-        	address.setCreationDateTime(new Timestamp(System.currentTimeMillis()));
+        	User user = (User)h.getItemById(User.class, toIntExact((long)body.get("userId")));
+        	if (user != null) {
+        		address.setCreationUserID(toIntExact((long)body.get("userId")));
+            	address.setCreationDateTime(new Timestamp(System.currentTimeMillis()));
+            	Status status = (Status)h.getItemById(Status.class, toIntExact((long) body.get("statusID")));
+            	if (status != null) {
+            		h.insertItem(Address.class, address);
+                	errorCode.put("errorCode", 0);
+                	errorCode.put("message", Error.getErrorByCode(0));
+            	}else {
+            		errorCode.put("errorCode", -6);
+            		errorCode.put("message", Error.getErrorByCode(-6));
+            	}
+        	}else {
+        		errorCode.put("errorCode", -5);
+        		errorCode.put("message", Error.getErrorByCode(-5));
+        	}
         	
-        	Helper h = new Helper(context);
-        	
-        	h.insertItem(Address.class, address);
-        	errorCode.put("errorCode", 0);
-            errorCode.put("message", "Success");
         } catch(Exception ex) {
         	errorCode.put("errorCode", -100);
             errorCode.put("message", ex.getMessage());

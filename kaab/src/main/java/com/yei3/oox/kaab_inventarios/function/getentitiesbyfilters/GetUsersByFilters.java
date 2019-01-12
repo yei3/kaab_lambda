@@ -57,6 +57,7 @@ public class GetUsersByFilters implements RequestStreamHandler {
             				userJson = new JSONObject();
                     		 
             				userJson.put("id", user.getId());
+            				userJson.put("companyAccountID", user.getCompanyAccountID());
                    		 	userJson.put("role", user.getRole());
                    		 	userJson.put("user", user.getUser());
                    		 	userJson.put("names", user.getNames());

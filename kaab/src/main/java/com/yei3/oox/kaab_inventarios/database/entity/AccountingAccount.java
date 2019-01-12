@@ -28,7 +28,6 @@ public class AccountingAccount implements Entity{
 			"creationDateTime",
 			"lastModDateTime",
 			"deleteDateTime",
-			"lastModDateTime",
 			"creationUserID",
 			"lastModUserID",
 			"deleteUserID"

@@ -1,9 +1,11 @@
 package com.yei3.oox.kaab_inventarios.database.entity;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 public class User implements Entity{
 	private int id;
+	private int companyAccountID;
 	private String role;
 	private String user;
 	private String names;
@@ -21,6 +23,7 @@ public class User implements Entity{
 	
 	private String[] columns = {
 			"id",
+			"companyAccountID",
 			"role",
 			"user",
 			"names",
@@ -37,6 +40,7 @@ public class User implements Entity{
 	
 	private Class[] types = {
 			int.class,
+			int.class,
 			String.class,
 			String.class,
 			String.class,
@@ -51,7 +55,8 @@ public class User implements Entity{
 			int.class
 			};
 	
-	public User(String role, String user, String names, String lastname, String middlename, int statusID) {
+	public User(int companyAccountID, String role, String user, String names, String lastname, String middlename, int statusID) {
+		this.companyAccountID = companyAccountID;
 		this.role = role;
 		this.user = user;
 		this.names = names;
@@ -60,14 +65,31 @@ public class User implements Entity{
 		this.statusID = statusID;
 	}
 	
+	
+	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", role=" + role + ", user=" + user + ", names=" + names + ", lastname=" + lastname
-				+ ", middlename=" + middlename + ", statusID=" + statusID + ", creationDateTime=" + creationDateTime
-				+ ", lastModDateTime=" + lastModDateTime + ", deleteDateTime=" + deleteDateTime + ", creationUserID="
-				+ creationUserID + ", lastModUserID=" + lastModUserID + ", deleteUserID=" + deleteUserID + "]";
+		return "User [id=" + id + ", companyAccountID=" + companyAccountID + ", role=" + role + ", user=" + user
+				+ ", names=" + names + ", lastname=" + lastname + ", middlename=" + middlename + ", statusID="
+				+ statusID + ", creationDateTime=" + creationDateTime + ", lastModDateTime=" + lastModDateTime
+				+ ", deleteDateTime=" + deleteDateTime + ", creationUserID=" + creationUserID + ", lastModUserID="
+				+ lastModUserID + ", deleteUserID=" + deleteUserID + "]";
 	}
-	
+
+
+
+	public int getCompanyAccountID() {
+		return companyAccountID;
+	}
+
+
+
+	public void setCompanyAccountID(int companyAccountID) {
+		this.companyAccountID = companyAccountID;
+	}
+
+
+
 	public User() {
 		
 	}

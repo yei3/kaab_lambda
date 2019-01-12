@@ -13,8 +13,13 @@ import java.sql.Timestamp;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.yei3.oox.kaab_inventarios.database.entity.Department;
+import com.yei3.oox.kaab_inventarios.database.entity.Location;
 import com.yei3.oox.kaab_inventarios.database.entity.RegistrationSession;
+import com.yei3.oox.kaab_inventarios.database.entity.User;
 import com.yei3.oox.kaab_inventarios.database.util.Helper;
+import com.yei3.oox.kaab_inventarios.util.Error;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -32,22 +37,39 @@ public class CreateRegistrationSession implements RequestStreamHandler {
     	JSONObject responseBody = new JSONObject();
     	//context.getIdentity().getIdentityId()
         try {
+        	Helper h = new Helper(context);
         	JSONObject event = (JSONObject)parser.parse(reader);
         	JSONObject body = (JSONObject)parser.parse((String) event.get("body"));
         	RegistrationSession registrationSession = new RegistrationSession();
         	
         	registrationSession.setFinalDateTime(Timestamp.valueOf((String) body.get("finalDateTime")));
-        	registrationSession.setSessionDepartmentID(toIntExact((long)body.get("sessionDepartmentID")));
-        	registrationSession.setSessionLocationId(toIntExact((long) body.get("sessionLocationId")));
-        	//TODO add cognito >:v
-        	registrationSession.setCreationUserID(toIntExact((long)body.get("userId")));
-        	registrationSession.setCreationDateTime(new Timestamp(System.currentTimeMillis()));
-        	
-        	Helper h = new Helper(context);
-        	
-        	h.insertItem(RegistrationSession.class, registrationSession);
-        	errorCode.put("errorCode", 0);
-            errorCode.put("message", "Success");
+        	Department department = (Department)h.getItemById(Department.class, toIntExact((long)body.get("sessionDepartmentID")));
+        	if (department != null) {
+        		registrationSession.setSessionDepartmentID(toIntExact((long)body.get("sessionDepartmentID")));
+        		Location location = (Location)h.getItemById(Location.class, toIntExact((long) body.get("sessionLocationId")));
+        		if (location != null) {
+        			registrationSession.setSessionLocationId(toIntExact((long) body.get("sessionLocationId")));
+                	//TODO add cognito >:v
+        			User user = (User)h.getItemById(User.class, toIntExact((long)body.get("userId")));
+                	if (user != null) {
+                		registrationSession.setCreationUserID(toIntExact((long)body.get("userId")));
+                    	registrationSession.setCreationDateTime(new Timestamp(System.currentTimeMillis()));
+                    	
+                    	h.insertItem(RegistrationSession.class, registrationSession);
+                    	errorCode.put("errorCode", 0);
+                    	errorCode.put("message", Error.getErrorByCode(0));
+                	}else {
+                		errorCode.put("errorCode", -5);
+                    	errorCode.put("message", Error.getErrorByCode(-5));
+                	}
+        		}else {
+        			errorCode.put("errorCode", -11);
+                	errorCode.put("message", Error.getErrorByCode(-11));
+        		}
+        	}else {
+        		errorCode.put("errorCode", -15);
+            	errorCode.put("message", Error.getErrorByCode(-15));
+        	}
         } catch(Exception ex) {
         	errorCode.put("errorCode", -100);
             errorCode.put("message", ex.getMessage());

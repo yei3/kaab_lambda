@@ -38,6 +38,7 @@ public class UpdateCompany implements RequestStreamHandler {
         	Company company = (Company)h.getItemById(Company.class, toIntExact((long) body.get("id")));
         	
         	if (company !=null) {
+        		company.setCompanyAccountID(toIntExact((long) body.get("companyAccountID")));
         		company.setCompanyType((String)body.get("companyType"));
             	company.setIndustryType((String) body.get("industryType"));
             	company.setName((String) body.get("name"));

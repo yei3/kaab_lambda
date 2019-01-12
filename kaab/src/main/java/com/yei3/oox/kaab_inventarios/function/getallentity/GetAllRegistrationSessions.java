@@ -13,6 +13,7 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.yei3.oox.kaab_inventarios.database.entity.RegistrationSession;
 import com.yei3.oox.kaab_inventarios.database.util.Helper;
+import com.yei3.oox.kaab_inventarios.util.Error;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -43,14 +44,14 @@ public class GetAllRegistrationSessions implements RequestStreamHandler {
 				registrationSessionJson = new JSONObject();
         		 
 				registrationSessionJson.put("id", registrationSession.getId());
-       		 	registrationSessionJson.put("finalDateTime", registrationSession.getFinalDateTime());
+       		 	registrationSessionJson.put("finalDateTime", registrationSession.getFinalDateTime().toString());
        		 	registrationSessionJson.put("sessionDepartmentID", registrationSession.getSessionDepartmentID());
        		 	registrationSessionJson.put("sessionLocationId", registrationSession.getSessionLocationId());
              	list.add(registrationSessionJson);
         	 }
 			
 			errorCode.put("errorCode", 0);
-	        errorCode.put("message", "Success");
+			errorCode.put("message", Error.getErrorByCode(0));
 	        responseBody.put("registrationSessions", list);
         } catch(Exception ex) {
         	errorCode.put("errorCode", -100);

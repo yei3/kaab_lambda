@@ -80,7 +80,6 @@ public class GetAssetsByFilters implements RequestStreamHandler {
                         	assetJson.put("locationID", asset.getLocationID());
                         	assetJson.put("locationDetail", asset.getLocationDetail());
                         	assetJson.put("comments", asset.getComments());
-                        	assetJson.put("image", asset.getImage());
                         	assetJson.put("personalString01", asset.getPersonalString01());
                         	assetJson.put("personalString02", asset.getPersonalString02());
                         	assetJson.put("personalString03", asset.getPersonalString03());
